@@ -10,8 +10,6 @@ function Login() {
     const regexEmail =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
-    console.log(regexEmail.test(email));
-
     if (email === "" || password === "")
       swAlert(<h2>Los campos no pueden estar vacios!</h2>);
 
@@ -24,7 +22,8 @@ function Login() {
       .post("http://challenge-react.alkemy.org", { email, password })
       .then((res) => {
         swAlert(<h2>Se registro correctamente!</h2>);
-        console.log(res.data);
+        const tokenRecibido = res.data.token;
+        localStorage.set("token", tokenRecibido);
       })
       .catch((err) => console.log(err));
   };
